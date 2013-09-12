@@ -84,8 +84,12 @@ merge_range_with_previous (struct range_t *range)
   return previous;
 }
 
+/* Takes a list of runs on the line in the logical order and
+ * reorders the list to be in visual order, returning the
+ * left-most run.
+ */
 struct run_t *
-reorder_line (struct run_t *line)
+linear_reorder (struct run_t *line)
 {
   struct range_t *range = NULL;
   struct run_t *run;
