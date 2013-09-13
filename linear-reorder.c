@@ -47,6 +47,9 @@ struct run_t {
 
 struct range_t {
   int level;
+  /* Left-most and right-most runs in the range, in visual order.
+   * Following left's next member eventually gets us to right.
+   * The right run's next member is undefined. */
   struct run_t *left;
   struct run_t *right;
   struct range_t *previous;
@@ -87,10 +90,20 @@ merge_range_with_previous (struct range_t *range)
 /* Takes a list of runs on the line in the logical order and
  * reorders the list to be in visual order, returning the
  * left-most run.
+ *
+ * Caller is responsible to reverse the run contents for any
+ * run that has an odd level.
  */
 struct run_t *
 linear_reorder (struct run_t *line)
 {
+  /* The algorithm here is something like this: sweep runs in the
+   * logical order, keeping a stack of ranges.  Upon seeing a run,
+   * we flatten all ranges before it that have a level higher than
+   * the run, by merging them, reordering as we go.  Then we either
+   * merge the run with the previous range, or create a new range
+   * for the run, depending on the level relationship.
+   */
   struct range_t *range = NULL;
   struct run_t *run;
 
