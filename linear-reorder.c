@@ -108,7 +108,7 @@ linear_reorder (struct run_t *line)
 
     if (range && range->level >= run->level)
     {
-      /* Merge run into range. */
+      /* Attach run to the range. */
       if (run->level % 1)
       {
 	/* Odd, range goes to the right of run. */
@@ -121,10 +121,11 @@ linear_reorder (struct run_t *line)
 	range->right->next = run;
 	range->right = run;
       }
+      range->level = run->level;
     }
     else
     {
-      /* Allocate new range for run. */
+      /* Allocate new range for run and push into stack. */
       struct range_t *r = malloc (sizeof (struct range_t));
       r->left = r->right = run;
       r->level = run->level;
