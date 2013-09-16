@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013  Google, Inc.
  *
- * A one-pass linear-time implementation of UBA rule L2.
+ * A one-pass linear-time implementation of UAX#9 rule L2
  * http://www.unicode.org/reports/tr9/#L2
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
