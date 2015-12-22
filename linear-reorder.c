@@ -66,7 +66,7 @@ merge_range_with_previous (struct range_t *range)
   assert (range->previous);
   assert (previous->level < range->level);
 
-  if (previous->level % 1)
+  if (previous->level % 2)
   {
     /* Odd, previous goes to the right of range. */
     left = range;
@@ -123,7 +123,7 @@ linear_reorder (struct run_t *line)
     if (range && range->level >= run->level)
     {
       /* Attach run to the range. */
-      if (run->level % 1)
+      if (run->level % 2)
       {
 	/* Odd, range goes to the right of run. */
 	run->next = range->left;
