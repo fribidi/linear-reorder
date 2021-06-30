@@ -156,5 +156,9 @@ linear_reorder (struct run_t *line)
   /* Terminate. */
   range->right->next = NULL;
 
-  return range->left;
+  /* Free final range. */
+  run = range->left;
+  free (range);
+
+  return run;
 }
